@@ -72,7 +72,7 @@ do
     seeDummy=0
     seeBushes = 0
     if (randInRange(0, 100) < 20) then
-        randomDummy=randInRange(1,6)
+        randomDummy=randInRange(1,7)
         call generateDummy randomDummy
         print "You see "; DummyName$; " Is walking around."
         seeDummy=1
@@ -204,6 +204,84 @@ sub generateDummy aDummyIndex
     DummySpares(6) = 1
     DummyHappys(6) = 1
     DummyDialogues$(6) = "Im the coolest bug in town!"
+    DummyDialogues$(6) = "Im the coolest bug in town!"
+    DummyVitalities(6) = 1
+    DummyStrengths(6) = 1
+    DummyAgilities(6) = 1
+    DummyNames$(7) = "Doggo"
+    DummySpares(7) = 1
+    DummyHappys(7) = 1
+    DummyDialogues$(7) = "Meow!"
+    DummyVitalities(7) = 1
+    DummyStrengths(7) = 2
+    DummyAgilities(7) = 0
+    DummySpare = DummySpares(aDummyIndex)
+    DummyHappy = DummyHappys(aDummyIndex)
+    DummyName$ = DummyNames$(aDummyIndex)
+    DummyDialogue$ = DummyDialogues$(aDummyIndex)
+    levelDiff=1
+    minDummyLevel = PlayerLevel-levelDiff
+    if (minDummyLevel<1) then minDummyLevel = 1
+    DummyLevel = randInRange(minDummyLevel, PlayerLevel+levelDiff)
+    DummyVitality = DummyVitalities(aDummyIndex)
+    DummyStrength = DummyStrengths(aDummyIndex)
+    DummyAgility = DummyAgilities(aDummyIndex)
+    if DummyLevel > 1 then
+        for i = 1 to DummyLevel
+            call levelDummyUp
+        next i
+    end if
+    DummyGold = randInRange(0, DummyLevel)
+    DummyXP = DummyVitality + DummyStrength + DummyAgility
+    DummyHealth = calculateMaxHP(DummyVitality, DummyStrength)
+end sub
+sub generateDummyArea1 aDummyIndex
+    DummyNames$(1) = "Woshua"
+    DummySpares(1) = 1
+    DummyHappys(1) = 1
+    DummyDialogues$(1) = "i must clens the world..."
+    DummyVitalities(1) = 2
+    DummyStrengths(1) = 1
+    DummyAgilities(1) = 0
+    DummyNames$(2) = "glyde"
+    DummySpares(2) = 1
+    DummyHappys(2) = 1
+    DummyDialogues$(2) = "Eh?you forgot to clap."
+    DummyVitalities(2) = 1
+    DummyStrengths(2) = 1
+    DummyAgilities(2) = 0
+    DummyNames$(3) = "Moldbygg"
+    DummySpares(3) = 2
+    DummyHappys(3) = 1
+    DummyDialogues$(3) = "Gooh!"
+    DummyVitalities(3) = 1
+    DummyStrengths(3) = 1
+    DummyAgilities(3) = 0
+    DummyNames$(4) = "Doodlebug"
+    DummySpares(4) = 2
+    DummyHappys(4) = 1
+    DummyDialogues$(4) = "Yö'ôûâÿ÷   øôæéíÿþ"
+    DummyVitalities(4) = 1
+    DummyStrengths(4) = 1
+    DummyAgilities(4) = 0
+    DummyNames$(5) = "Astigmatism"
+    DummySpares(5) = 2
+    DummyHappys(5) = 1
+    DummyDialogues$(5) = "Have you fallen down?you cant look at it.you cant look at it.you cant look at it"
+    DummyVitalities(5) = 1
+    DummyStrengths(5) = 2
+    DummyAgilities(5) = 0
+    DummyNames$(6) = "Glad dummy"
+    DummySpares(6) = 1
+    DummyHappys(6) = 1
+    DummyDialogues$(6) = "I'm so happy:)"
+    DummyVitalities(6) = 1
+    DummyStrengths(6) = 1
+    DummyAgilities(6) = 1
+    DummyNames$(6) = "Catty"
+    DummySpares(6) = 1
+    DummyHappys(6) = 1
+    DummyDialogues$(6) = "Woof!"
     DummyVitalities(6) = 1
     DummyStrengths(6) = 2
     DummyAgilities(6) = 0
@@ -226,7 +304,7 @@ sub generateDummy aDummyIndex
     DummyGold = randInRange(0, DummyLevel)
     DummyXP = DummyVitality + DummyStrength + DummyAgility
     DummyHealth = calculateMaxHP(DummyVitality, DummyStrength)
-end sub
+    end sub
 ' INVENTORY, ITEMS, ARMOR, WEAPONS
 sub initPlayerInventory
     PlayerInventoryItemsQuantities(1) = int(rnd(1)*5)   '"Crab Apple"
