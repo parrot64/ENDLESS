@@ -120,69 +120,9 @@ do
         CASE 3
             call MyInfo
         CASE 4
-OPEN "C:\Users\Public\Documents\save_file.txt" FOR OUTPUT AS #1
-PRINT #1, ItemsSize
-PRINT #1, ArmorsSize
-PRINT #1, WeaponsSize
-PRINT #1, PlayerCurrentHealth
-PRINT #1, PlayerMaxHealth
-PRINT #1, PlayerLevel
-PRINT #1, PlayerXP
-PRINT #1, PlayerGold
-PRINT #1, PlayerCurrentArmor
-PRINT #1, PlayerCurrentWeapon
-PRINT #1, PlayerVitality
-PRINT #1, PlayerStrength
-PRINT #1, PlayerAgility
-PRINT #1, PlayerInventoryItemsQuantities
-PRINT #1, DummySpare
-PRINT #1, DummyHappy
-PRINT #1, DummyName$
-PRINT #1, DummyDialogue$
-PRINT #1, DummyHealth
-PRINT #1, DummyGold
-PRINT #1, DummyLevel
-PRINT #1, DummyVitality
-PRINT #1, DummyStrength
-PRINT #1, DummyAgility
-PRINT #1, DummyXP
-PRINT #1, strangerDiscovered
-PRINT #1, castleDiscovered
-PRINT #1, gameFinish
-PRINT #1, PlayerKills
-CLOSE #1
+            call save
         CASE 5
-OPEN "C:\Users\Public\Documents\save_file.txt" FOR INPUT AS #1
-INPUT #1, ItemsSize
-INPUT #1, ArmorsSize
-INPUT #1, WeaponsSize
-INPUT #1, PlayerCurrentHealth
-INPUT #1, PlayerMaxHealth
-INPUT #1, PlayerLevel
-INPUT #1, PlayerXP
-INPUT #1, PlayerGold
-INPUT #1, PlayerCurrentArmor
-INPUT #1, PlayerCurrentWeapon
-INPUT #1, PlayerVitality
-INPUT #1, PlayerStrength
-INPUT #1, PlayerAgility
-INPUT #1, PlayerInventoryItemsQuantities
-INPUT #1, DummySpare
-INPUT #1, DummyHappy
-INPUT #1, DummyName$
-INPUT #1, DummyDialogue$
-INPUT #1, DummyHealth
-INPUT #1, DummyGold
-INPUT #1, DummyLevel
-INPUT #1, DummyVitality
-INPUT #1, DummyStrength
-INPUT #1, ummyAgility
-INPUT #1, DummyXP
-INPUT #1, strangerDiscovered
-INPUT #1, castleDiscovered
-INPUT #1, gameFinish
-INPUT #1, PlayerKills
-CLOSE #1
+            call load
         CASE 6
             if (seeDummy=1) then
                 call BATTLE
@@ -1001,4 +941,70 @@ sub waitSecond
         secondsNow = time$("seconds")
         secondsDiff = secondsNow - seconds
     loop until secondsDiff >= 1
+end sub
+sub save
+    OPEN "C:\Users\Public\Documents\save_file.txt" FOR OUTPUT AS #1
+    PRINT #1, ItemsSize
+    PRINT #1, ArmorsSize
+    PRINT #1, WeaponsSize
+    PRINT #1, PlayerCurrentHealth
+    PRINT #1, PlayerMaxHealth
+    PRINT #1, PlayerLevel
+    PRINT #1, PlayerXP
+    PRINT #1, PlayerGold
+    PRINT #1, PlayerCurrentArmor
+    PRINT #1, PlayerCurrentWeapon
+    PRINT #1, PlayerVitality
+    PRINT #1, PlayerStrength
+    PRINT #1, PlayerAgility
+    PRINT #1, PlayerInventoryItemsQuantities
+    PRINT #1, DummySpare
+    PRINT #1, DummyHappy
+    PRINT #1, DummyName$
+    PRINT #1, DummyDialogue$
+    PRINT #1, DummyHealth
+    PRINT #1, DummyGold
+    PRINT #1, DummyLevel
+    PRINT #1, DummyVitality
+    PRINT #1, DummyStrength
+    PRINT #1, DummyAgility
+    PRINT #1, DummyXP
+    PRINT #1, strangerDiscovered
+    PRINT #1, castleDiscovered
+    PRINT #1, gameFinish
+    PRINT #1, PlayerKills
+    CLOSE #1
+end sub
+sub load
+    OPEN "C:\Users\Public\Documents\save_file.txt" FOR INPUT AS #1
+    INPUT #1, ItemsSize
+    INPUT #1, ArmorsSize
+    INPUT #1, WeaponsSize
+    INPUT #1, PlayerCurrentHealth
+    INPUT #1, PlayerMaxHealth
+    INPUT #1, PlayerLevel
+    INPUT #1, PlayerXP
+    INPUT #1, PlayerGold
+    INPUT #1, PlayerCurrentArmor
+    INPUT #1, PlayerCurrentWeapon
+    INPUT #1, PlayerVitality
+    INPUT #1, PlayerStrength
+    INPUT #1, PlayerAgility
+    INPUT #1, PlayerInventoryItemsQuantities
+    INPUT #1, DummySpare
+    INPUT #1, DummyHappy
+    INPUT #1, DummyName$
+    INPUT #1, DummyDialogue$
+    INPUT #1, DummyHealth
+    INPUT #1, DummyGold
+    INPUT #1, DummyLevel
+    INPUT #1, DummyVitality
+    INPUT #1, DummyStrength
+    INPUT #1, ummyAgility
+    INPUT #1, DummyXP
+    INPUT #1, strangerDiscovered
+    INPUT #1, castleDiscovered
+    INPUT #1, gameFinish
+    INPUT #1, PlayerKills
+    CLOSE #1
 end sub
