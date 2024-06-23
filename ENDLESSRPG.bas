@@ -260,7 +260,7 @@ sub generateDummyArea1 aDummyIndex
     DummyNames$(4) = "Doodlebug"
     DummySpares(4) = 2
     DummyHappys(4) = 1
-    DummyDialogues$(4) = "Yö'ôûâÿ÷   øôæéíÿþ"
+    DummyDialogues$(4) = "Yï¿½'ï¿½ï¿½ï¿½ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
     DummyVitalities(4) = 1
     DummyStrengths(4) = 1
     DummyAgilities(4) = 0
@@ -504,12 +504,12 @@ end sub
 '////////////////////////////////////////////////////////////////////////
 ' SHOP
 sub SHOP
-PRINT " __        _    _ "
-PRINT "(_  |__|  / \  |_) "
-PRINT "__) |  |  \_/  |   "
-PRINT " "
-PRINT " "
-PRINT " "
+    PRINT " __        _    _ "
+    PRINT "(_  |__|  / \  |_) "
+    PRINT "__) |  |  \_/  |   "
+    PRINT " "
+    PRINT " "
+    PRINT " "
     PRINT "HI! Welcome to my shop where you can buy ITEMS, ARMOR and WEAPONS"
     do
         PRINT "Your gold: "; PlayerGold
@@ -732,22 +732,23 @@ sub STRANGER
             PlayerInventoryItemsQuantities(8)=1
             PlayerInventoryItemsQuantities(7)=0
         end if
-                    if (PlayerInventoryItemsQuantities(8)>0) then
-                Print "I-i already gave you t-the key. W-why did you come back?"
-                print "Well ill just accept my fate..."
-                CALL waitMilliseconds 300
-                print "..."
-                CALL waitMilliseconds 300
-                print "..."
-                print "YOU WON!"
-                PRINT "well we didn't gain any XP..."
-                PRINT "but we can always gain more"
-                CALL waitMilliseconds 100
-                PlayerKills=PlayerKills+1
-            else
-                print "Stranger: I lost my artefact somewhere in bushes. Could you please find it for me?"
-                print "You went away from stranger"
-            end if
+        
+        if (PlayerInventoryItemsQuantities(8)>0) then
+            Print "I-i already gave you t-the key. W-why did you come back?"
+            print "Well ill just accept my fate..."
+            CALL waitMilliseconds 300
+            print "..."
+            CALL waitMilliseconds 300
+            print "..."
+            print "YOU WON!"
+            PRINT "well we didn't gain any XP..."
+            PRINT "but we can always gain more"
+            CALL waitMilliseconds 100
+            PlayerKills=PlayerKills+1
+        else
+            print "Stranger: I lost my artefact somewhere in bushes. Could you please find it for me?"
+            print "You went away from stranger"
+        end if
     else
         ' if player has artefact
         if (PlayerInventoryItemsQuantities(7)>0) then
@@ -766,24 +767,25 @@ sub STRANGER
                 print "2.No"
                 INPUT "Chioce:"; choice
                 SELECT CASE choice
-                CASE 1
-                PRINT "Ok so let me tell you the rules"
-                print "You get 4 tries to guess the number im thinking of"
-                print "if you win you'll get 25 gold"
-                print "but if you loose i'll take 40 gold from you"
-                CALL Game
-                CASE 2
-                PRINT "Oh well"
-                print "You went away from the stranger"
-                CASE ELSE
-            PRINT "NULL_NAN"
-    END SELECT
+                    CASE 1
+                        PRINT "Ok so let me tell you the rules"
+                        print "You get 4 tries to guess the number im thinking of"
+                        print "if you win you'll get 25 gold"
+                        print "but if you loose i'll take 40 gold from you"
+                        CALL Game
+                    CASE 2
+                        PRINT "Oh well"
+                        print "You went away from the stranger"
+                    CASE ELSE
+                        PRINT "NULL_NAN"
+                END SELECT
             else
                 print "Stranger: I lost my artefact somewhere in bushes. Could you please find it for me?"
                 print "You went away from stranger"
             end if
         end if
     end if
+
     print
 end sub
 sub BATTLE
@@ -825,7 +827,7 @@ sub BATTLE
             PRINT DummyName$; " is smiling"
         end if
         if DummyHealth <= 0 then
-        PlayerKills=PlayerKills+1
+            PlayerKills=PlayerKills+1
             PlayerXP=PlayerXP+DummyXP
             PlayerGold = PlayerGold + DummyGold
             PRINT "YOU WON!"
@@ -950,8 +952,8 @@ sub MERCY
         print
         else
         IF DummyHappy=0 then
-                    DummySpare=DummySpare=-1
-    end if
+            DummySpare=DummySpare=-1
+        end if
     end if
 end sub
 sub MyInfo
@@ -989,7 +991,7 @@ end sub
 sub Quiz
 end sub
 sub Game
-PlayerGuesses=4
+    PlayerGuesses=4
     PRINT "Welcome to the funny number game!"
     RandomAns=int(rnd(1)*10)
     DO
@@ -1003,10 +1005,10 @@ PlayerGuesses=4
             PlayerGuesses=PlayerGuesses-1
         end IF
         IF PlayerGuesses<=0 then
-        print "STRANGER:"
-        PRINT "Welp you win some you loose some but today i won"
-        PlayerGold=PlayerGold-40
-        PlayerGuesses=4
+            print "STRANGER:"
+            PRINT "Welp you win some you loose some but today i won"
+            PlayerGold=PlayerGold-40
+            PlayerGuesses=4
         END IF
     LOOP UNTIL PlayerInputNum=RandomAns
     PRINT "CONGRATULATIONS!YOU WON!"
