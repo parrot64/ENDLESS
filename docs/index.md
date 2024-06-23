@@ -11,9 +11,9 @@ Bad ending
 
 
 Here are some planned updates:   
-Balancing enemy stats   
-Mini games   
+Balancing enemy stats    
 More enemies and bosses   
+
 
 
 And that's all i have planned!

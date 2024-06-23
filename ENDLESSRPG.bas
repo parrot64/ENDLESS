@@ -72,7 +72,7 @@ do
     seeDummy=0
     seeBushes = 0
     if (randInRange(0, 100) < 20) then
-        randomDummy=randInRange(1,4)
+        randomDummy=randInRange(1,6)
         call generateDummy randomDummy
         print "You see "; DummyName$; " Is walking around."
         seeDummy=1
@@ -200,6 +200,13 @@ sub generateDummy aDummyIndex
     DummyVitalities(5) = 1
     DummyStrengths(5) = 2
     DummyAgilities(5) = 0
+    DummyNames$(6) = "Skate bug"
+    DummySpares(6) = 1
+    DummyHappys(6) = 1
+    DummyDialogues$(6) = "Im the coolest bug in town!"
+    DummyVitalities(6) = 1
+    DummyStrengths(6) = 2
+    DummyAgilities(6) = 0
     DummySpare = DummySpares(aDummyIndex)
     DummyHappy = DummyHappys(aDummyIndex)
     DummyName$ = DummyNames$(aDummyIndex)
@@ -434,7 +441,7 @@ PRINT " "
         PRINT "2. ARMOR"
         PRINT "3. WEAPONS"
         PRINT "0. exit shop"
-        INPUT "Your choise:" ;shopChoice
+        INPUT "Your choice:" ;shopChoice
         SELECT CASE shopChoice
             CASE 1
                 call SHOPITEMS
