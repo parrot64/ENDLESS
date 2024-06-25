@@ -39,7 +39,7 @@ global DummyStrength
 global DummyAgility
 global DummyXP
 ' Game Variables
-Num=0'for random miscalenius thing
+global GameChoiceDummy
 RandomAns=0
 GameRound=1
 global strangerDiscovered
@@ -226,8 +226,8 @@ sub initPlayerVariables
 end sub
 sub generateDummy aDummyIndex
     DummyNames$(1) = "Temmie"
-    DummySpares(1) = 1
-    DummyHappys(1) = 1
+    DummySpares(1) = 0
+    DummyHappys(1) = 0
     DummyDialogues$(1) = "Halo humen!"
     DummyVitalities(1) = 2
     DummyStrengths(1) = 1
@@ -294,6 +294,18 @@ sub generateDummy aDummyIndex
     DummyXP = DummyVitality + DummyStrength + DummyAgility
     DummyHealth = calculateMaxHP(DummyVitality, DummyStrength)
 end sub
+sub PullRandomDummyArea1
+GameChoiceDummy=int(rnd(1)*7)
+OPEN "ENEMIES_AREA1\DOGGO.txt" FOR INPUT AS #1
+INPUT #1, num1
+INPUT #1, num2
+INPUT #1, num3
+CLOSE #1
+print num1
+print num2
+print num3
+end if
+END SUB
 sub generateDummyArea1 aDummyIndex
     DummyNames$(1) = "Woshua"
     DummySpares(1) = 1
@@ -301,12 +313,12 @@ sub generateDummyArea1 aDummyIndex
     DummyDialogues$(1) = "i must clens the world..."
     DummyVitalities(1) = 2
     DummyStrengths(1) = 1
-    DummyAgilities(1) = 0
+    DummyAgilities(1) = 1
     DummyNames$(2) = "glyde"
     DummySpares(2) = 1
     DummyHappys(2) = 1
     DummyDialogues$(2) = "Eh?you forgot to clap."
-    DummyVitalities(2) = 1
+    DummyVitalities(2) = 2
     DummyStrengths(2) = 1
     DummyAgilities(2) = 0
     DummyNames$(3) = "Moldbygg"
@@ -315,12 +327,12 @@ sub generateDummyArea1 aDummyIndex
     DummyDialogues$(3) = "Gooh!"
     DummyVitalities(3) = 1
     DummyStrengths(3) = 1
-    DummyAgilities(3) = 0
+    DummyAgilities(3) = 1
     DummyNames$(4) = "Doodlebug"
     DummySpares(4) = 2
     DummyHappys(4) = 1
     DummyDialogues$(4) = "Yö'ôûâÿ÷   øôæéíÿþ"
-    DummyVitalities(4) = 1
+    DummyVitalities(4) = 3
     DummyStrengths(4) = 1
     DummyAgilities(4) = 0
     DummyNames$(5) = "Astigmatism"
@@ -329,10 +341,10 @@ sub generateDummyArea1 aDummyIndex
     DummyDialogues$(5) = "Have you fallen down?you cant look at it.you cant look at it.you cant look at it"
     DummyVitalities(5) = 1
     DummyStrengths(5) = 2
-    DummyAgilities(5) = 0
+    DummyAgilities(5) = 1
     DummyNames$(6) = "Glad dummy"
-    DummySpares(6) = 1
-    DummyHappys(6) = 1
+    DummySpares(6) = 0
+    DummyHappys(6) = 0
     DummyDialogues$(6) = "I'm so happy:)"
     DummyVitalities(6) = 1
     DummyStrengths(6) = 1
