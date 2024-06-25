@@ -264,7 +264,6 @@ sub generateDummy aDummyIndex
     DummySpares(6) = 1
     DummyHappys(6) = 1
     DummyDialogues$(6) = "Im the coolest bug in town!"
-    DummyDialogues$(6) = "Im the coolest bug in town!"
     DummyVitalities(6) = 1
     DummyStrengths(6) = 1
     DummyAgilities(6) = 1
