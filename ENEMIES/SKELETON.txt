@@ -1,0 +1,7 @@
+    DummyNames$(5) = "Skeleton"
+    DummySpares(5) = 2
+    DummyHappys(5) = 1
+    DummyDialogues$(5) = "Mwuahaha!"
+    DummyVitalities(5) = 1
+    DummyStrengths(5) = 2
+    DummyAgilities(5) = 0

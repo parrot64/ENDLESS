@@ -1,0 +1,7 @@
+    DummyNames$(3) = "Vegetiod"
+    DummySpares(3) = 2
+    DummyHappys(3) = 1
+    DummyDialogues$(3) = "Farmed Locally, Very Locally"
+    DummyVitalities(3) = 1
+    DummyStrengths(3) = 1
+    DummyAgilities(3) = 0
