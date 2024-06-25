@@ -1,7 +1,7 @@
-    DummyNames$(2) = "glyde"
-    DummySpares(2) = 1
-    DummyHappys(2) = 1
-    DummyDialogues$(2) = "Eh?you forgot to clap."
-    DummyVitalities(2) = 2
-    DummyStrengths(2) = 1
-    DummyAgilities(2) = 0
+    DummyNames$ = "glyde"
+    DummySpares = 1
+    DummyHappys = 1
+    DummyDialogues$ = "Eh?you forgot to clap."
+    DummyVitalities = 2
+    DummyStrengths = 1
+    DummyAgilities = 0

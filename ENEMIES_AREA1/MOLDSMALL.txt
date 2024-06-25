@@ -1,7 +1,7 @@
-    DummyNames$(4) = "Moldsmal"
-    DummySpares(4) = 2
-    DummyHappys(4) = 1
-    DummyDialogues$(4) = "Blurp blop"
-    DummyVitalities(4) = 1
-    DummyStrengths(4) = 1
-    DummyAgilities(4) = 0
+    DummyNames$ = "Moldsmal"
+    DummySpares = 2
+    DummyHappys = 1
+    DummyDialogues$ = "Blurp blop"
+    DummyVitalities = 1
+    DummyStrengths = 1
+    DummyAgilities = 0
