@@ -235,16 +235,15 @@ sub generateDummy aDummyIndex
     DummyHealth = calculateMaxHP(DummyVitality, DummyStrength)
 end sub
 sub PullRandomDummyArea1
-GameChoiceDummy=int(rnd(1)*7)
-OPEN "ENEMIES_AREA1\DOGGO.txt" FOR INPUT AS #1
-INPUT #1, num1
-INPUT #1, num2
-INPUT #1, num3
-CLOSE #1
-print num1
-print num2
-print num3
-end if
+    GameChoiceDummy=int(rnd(1)*7)
+    OPEN "ENEMIES_AREA1\DOGGO.txt" FOR INPUT AS #1
+    INPUT #1, num1
+    INPUT #1, num2
+    INPUT #1, num3
+    CLOSE #1
+    print num1
+    print num2
+    print num3
 END SUB
 sub generateDummyArea1 aDummyIndex
     DummyNames$(1) = "Woshua"
@@ -271,7 +270,7 @@ sub generateDummyArea1 aDummyIndex
     DummyNames$(4) = "Doodlebug"
     DummySpares(4) = 2
     DummyHappys(4) = 1
-    DummyDialogues$(4) = "Yö'ôûâÿ÷   øôæéíÿþ"
+    DummyDialogues$(4) = "Yï¿½'ï¿½ï¿½ï¿½ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
     DummyVitalities(4) = 3
     DummyStrengths(4) = 1
     DummyAgilities(4) = 0
