@@ -1,7 +1,7 @@
-    DummyNames$ = "Skate bug"
-    DummySpares = 1
-    DummyHappys = 1
-    DummyDialogues$ = "Im the coolest bug in town!"
-    DummyVitalities = 1
-    DummyStrengths = 1
-    DummyAgilities = 1
+Skate bug
+1
+1
+Im the coolest bug in town!
+1
+1
+1

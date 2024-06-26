@@ -1,7 +1,7 @@
-    DummyNames$ = "Vegetiod"
-    DummySpares = 2
-    DummyHappys = 1
-    DummyDialogues$ = "Farmed Locally, Very Locally"
-    DummyVitalities = 1
-    DummyStrengths = 1
-    DummyAgilities = 0
+Vegetiod
+2
+1
+Farmed Locally, Very Locally
+1
+1
+0

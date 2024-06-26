@@ -1,7 +1,7 @@
-    DummyNames$ = "Doggo"
-    DummySpares = 1
-    DummyHappys = 1
-    DummyDialogues$ = "Meow!"
-    DummyVitalities = 1
-    DummyStrengths = 2
-    DummyAgilities = 0
+Doggo
+1
+1
+Meow!
+1
+2
+0
