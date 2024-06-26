@@ -1,0 +1,7 @@
+<DummyName$>
+<DummySpare>
+<DummyHappy>
+<DummyDialogue$>
+<DummyVitality>
+<DummyStrength>
+<DummyAgility>
