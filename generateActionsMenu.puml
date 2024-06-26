@@ -1,0 +1,46 @@
+@startuml generateActionsMenu
+start
+
+:print "you are in the forest."
+seeDummy=0
+seeBushes = 0;
+
+if (randInRange(0, 100) < 20) then (true)
+    :Generate random dummy
+    seeDummy=1;
+else
+    if (randInRange(0, 100) < 20) then (true)
+        :seeBushes = 1;
+    else
+        if (randInRange(0, 100) < 20) and (castleDiscovered =0) then (true)
+            :castleDiscovered = 1;
+        else
+            if (randInRange(0, 100) < 20) and (strangerDiscovered =0) then (true)
+                :strangerDiscovered = 1;
+            endif
+        endif
+    endif
+endif
+
+note: (randInRange(0, 100) < 20) means probability 20%
+
+:print "Choose what to do:";
+:print "1. walk around";
+:print "2. Go to trader";
+:print "3. Info about me";
+if (seeDummy=1) then
+    :print "4. Attack " DummyName$;
+end if
+if (seeBushes=1) then
+    :print "5. Search in bushes";
+end if
+if (castleDiscovered=1) then
+    :print "6. Go to castle";
+end if
+if (strangerDiscovered=1) then
+    :print "7. Go to stranger and talk to him";
+end if
+
+stop
+
+@enduml

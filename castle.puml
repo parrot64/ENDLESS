@@ -1,0 +1,30 @@
+@startuml castle
+start
+
+:print "You are near the ancient castle.";
+:print "You see a big door. The door is definitely requires a key.";
+:print "Choose waht to do:";
+:print "1. Walk away";
+if (PlayerInventoryItemsQuantities(8)=1) then
+    :print "2. Use the key for the door of the castle";
+endif
+:INPUT "You choise:" ;actionChoice;
+
+switch(actionChoice)
+    case (1)
+        :PRINT "You walked away.";
+
+    case (2)
+        :Print congratulations;
+        :gameFinish=1;
+
+    CASE (else)
+        :PRINT "You walked away.";
+
+endswitch
+
+:print;
+
+stop
+
+@enduml

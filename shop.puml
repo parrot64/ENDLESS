@@ -1,0 +1,35 @@
+@startuml shop
+start
+:PRINT "HI! Welcome to my shop where you can buy ITEMS, ARMOR and WEAPONS";
+
+repeat
+
+    :PRINT "1. ITEMS"
+PRINT "2. ARMOR"
+PRINT "3. WEAPONS"
+PRINT "0. exit shop"
+INPUT "Your choise:" ;shopChoice;
+
+    :input shopChoice;
+
+    switch(shopChoice)
+        case (1)
+            :call SHOPITEMS;
+
+        case (2)
+            :call SHOPARMOR;
+
+        case (3)
+            :call SHOPWEAPONS;
+
+        CASE (0)
+            stop
+
+        CASE (else)
+            :PRINT "Invalid choice. Please enter a number from the menu.";
+
+    endswitch
+
+repeat while (true)
+
+@enduml

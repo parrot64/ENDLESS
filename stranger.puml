@@ -1,0 +1,25 @@
+@startuml stranger
+start
+
+    if (PlayerInventoryItemsQuantities(7)>0) then
+        :PlayerInventoryItemsQuantities(8)=1;
+        note: add key to inventory
+        :PlayerInventoryItemsQuantities(7)=0;
+        note: remove artifact from inventory
+        :castleDiscovered=1;
+    else
+        if (PlayerInventoryItemsQuantities(8)>0) then
+            :Print "I already gave you a key....";
+        else
+            :print "Stranger: I lost my artefact somewhere in bushes....";
+        endif
+        note: key is already in inventory
+    endif
+
+    note: if player has artefact
+
+    :print;
+
+stop
+
+@enduml

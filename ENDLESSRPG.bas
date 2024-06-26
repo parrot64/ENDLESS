@@ -38,6 +38,10 @@ global DummyVitality
 global DummyStrength
 global DummyAgility
 global DummyXP
+global DummyCurrentArea$
+global DummyMaxIndex
+DummyCurrentArea$="AREA1"
+DummyMaxIndex=7
 ' Game Variables
 global GameChoiceDummy
 RandomAns=0
@@ -72,8 +76,8 @@ do
     seeDummy=0
     seeBushes = 0
     if (randInRange(0, 100) < 20) then
-        randomDummy=randInRange(1,7)
-        call generateDummy randomDummy
+        randomDummy=randInRange(1,DummyMaxIndex)
+        call generateDummyArea1 randomDummy
         print "You see "; DummyName$; " Is walking around."
         seeDummy=1
     else
@@ -101,7 +105,6 @@ do
     if (seeDummy=1) then
         print "6. Attack "; DummyName$
     end if
-
     if (seeBushes = 1) then
         print "7. Search in bushes"
     end if
@@ -120,69 +123,9 @@ do
         CASE 3
             call MyInfo
         CASE 4
-OPEN "C:\Users\Public\Documents\save_file.txt" FOR OUTPUT AS #1
-PRINT #1, ItemsSize
-PRINT #1, ArmorsSize
-PRINT #1, WeaponsSize
-PRINT #1, PlayerCurrentHealth
-PRINT #1, PlayerMaxHealth
-PRINT #1, PlayerLevel
-PRINT #1, PlayerXP
-PRINT #1, PlayerGold
-PRINT #1, PlayerCurrentArmor
-PRINT #1, PlayerCurrentWeapon
-PRINT #1, PlayerVitality
-PRINT #1, PlayerStrength
-PRINT #1, PlayerAgility
-PRINT #1, PlayerInventoryItemsQuantities
-PRINT #1, DummySpare
-PRINT #1, DummyHappy
-PRINT #1, DummyName$
-PRINT #1, DummyDialogue$
-PRINT #1, DummyHealth
-PRINT #1, DummyGold
-PRINT #1, DummyLevel
-PRINT #1, DummyVitality
-PRINT #1, DummyStrength
-PRINT #1, DummyAgility
-PRINT #1, DummyXP
-PRINT #1, strangerDiscovered
-PRINT #1, castleDiscovered
-PRINT #1, gameFinish
-PRINT #1, PlayerKills
-CLOSE #1
+            call save
         CASE 5
-OPEN "C:\Users\Public\Documents\save_file.txt" FOR INPUT AS #1
-INPUT #1, ItemsSize
-INPUT #1, ArmorsSize
-INPUT #1, WeaponsSize
-INPUT #1, PlayerCurrentHealth
-INPUT #1, PlayerMaxHealth
-INPUT #1, PlayerLevel
-INPUT #1, PlayerXP
-INPUT #1, PlayerGold
-INPUT #1, PlayerCurrentArmor
-INPUT #1, PlayerCurrentWeapon
-INPUT #1, PlayerVitality
-INPUT #1, PlayerStrength
-INPUT #1, PlayerAgility
-INPUT #1, PlayerInventoryItemsQuantities
-INPUT #1, DummySpare
-INPUT #1, DummyHappy
-INPUT #1, DummyName$
-INPUT #1, DummyDialogue$
-INPUT #1, DummyHealth
-INPUT #1, DummyGold
-INPUT #1, DummyLevel
-INPUT #1, DummyVitality
-INPUT #1, DummyStrength
-INPUT #1, ummyAgility
-INPUT #1, DummyXP
-INPUT #1, strangerDiscovered
-INPUT #1, castleDiscovered
-INPUT #1, gameFinish
-INPUT #1, PlayerKills
-CLOSE #1
+            call load
         CASE 6
             if (seeDummy=1) then
                 call BATTLE
@@ -224,149 +167,50 @@ sub initPlayerVariables
     PlayerCurrentArmor = 1 'Bandage
     PlayerCurrentWeapon = 1 'Stick
 end sub
-sub generateDummy aDummyIndex
-    DummyNames$(1) = "Temmie"
-    DummySpares(1) = 0
-    DummyHappys(1) = 0
-    DummyDialogues$(1) = "Halo humen!"
-    DummyVitalities(1) = 2
-    DummyStrengths(1) = 1
-    DummyAgilities(1) = 0
-    DummyNames$(2) = "Froggit"
-    DummySpares(2) = 1
-    DummyHappys(2) = 1
-    DummyDialogues$(2) = "Ribbit,Ribbit"
-    DummyVitalities(2) = 1
-    DummyStrengths(2) = 1
-    DummyAgilities(2) = 0
-    DummyNames$(3) = "Vegetiod"
-    DummySpares(3) = 2
-    DummyHappys(3) = 1
-    DummyDialogues$(3) = "Farmed Locally, Very Locally"
-    DummyVitalities(3) = 1
-    DummyStrengths(3) = 1
-    DummyAgilities(3) = 0
-    DummyNames$(4) = "Moldsmal"
-    DummySpares(4) = 2
-    DummyHappys(4) = 1
-    DummyDialogues$(4) = "Blurp blop"
-    DummyVitalities(4) = 1
-    DummyStrengths(4) = 1
-    DummyAgilities(4) = 0
-    DummyNames$(5) = "Skeleton"
-    DummySpares(5) = 2
-    DummyHappys(5) = 1
-    DummyDialogues$(5) = "Mwuahaha!"
-    DummyVitalities(5) = 1
-    DummyStrengths(5) = 2
-    DummyAgilities(5) = 0
-    DummyNames$(6) = "Skate bug"
-    DummySpares(6) = 1
-    DummyHappys(6) = 1
-    DummyDialogues$(6) = "Im the coolest bug in town!"
-    DummyVitalities(6) = 1
-    DummyStrengths(6) = 1
-    DummyAgilities(6) = 1
-    DummyNames$(7) = "Doggo"
-    DummySpares(7) = 1
-    DummyHappys(7) = 1
-    DummyDialogues$(7) = "Meow!"
-    DummyVitalities(7) = 1
-    DummyStrengths(7) = 2
-    DummyAgilities(7) = 0
-    DummySpare = DummySpares(aDummyIndex)
-    DummyHappy = DummyHappys(aDummyIndex)
-    DummyName$ = DummyNames$(aDummyIndex)
-    DummyDialogue$ = DummyDialogues$(aDummyIndex)
-    levelDiff=1
-    minDummyLevel = PlayerLevel-levelDiff
-    if (minDummyLevel<1) then minDummyLevel = 1
-    DummyLevel = randInRange(minDummyLevel, PlayerLevel+levelDiff)
-    DummyVitality = DummyVitalities(aDummyIndex)
-    DummyStrength = DummyStrengths(aDummyIndex)
-    DummyAgility = DummyAgilities(aDummyIndex)
-    if DummyLevel > 1 then
-        for i = 1 to DummyLevel
-            call levelDummyUp
-        next i
-    end if
-    DummyGold = randInRange(0, DummyLevel)
-    DummyXP = DummyVitality + DummyStrength + DummyAgility
-    DummyHealth = calculateMaxHP(DummyVitality, DummyStrength)
-end sub
-sub PullRandomDummyArea1
-GameChoiceDummy=int(rnd(1)*7)
-OPEN "ENEMIES_AREA1\DOGGO.txt" FOR INPUT AS #1
-INPUT #1, num1
-INPUT #1, num2
-INPUT #1, num3
-CLOSE #1
-print num1
-print num2
-print num3
-end if
-END SUB
 sub generateDummyArea1 aDummyIndex
-    DummyNames$(1) = "Woshua"
-    DummySpares(1) = 1
-    DummyHappys(1) = 1
-    DummyDialogues$(1) = "i must clens the world..."
-    DummyVitalities(1) = 2
-    DummyStrengths(1) = 1
-    DummyAgilities(1) = 1
-    DummyNames$(2) = "glyde"
-    DummySpares(2) = 1
-    DummyHappys(2) = 1
-    DummyDialogues$(2) = "Eh?you forgot to clap."
-    DummyVitalities(2) = 2
-    DummyStrengths(2) = 1
-    DummyAgilities(2) = 0
-    DummyNames$(3) = "Moldbygg"
-    DummySpares(3) = 2
-    DummyHappys(3) = 1
-    DummyDialogues$(3) = "Gooh!"
-    DummyVitalities(3) = 1
-    DummyStrengths(3) = 1
-    DummyAgilities(3) = 1
-    DummyNames$(4) = "Doodlebug"
-    DummySpares(4) = 2
-    DummyHappys(4) = 1
-    DummyDialogues$(4) = "Yö'ôûâÿ÷   øôæéíÿþ"
-    DummyVitalities(4) = 3
-    DummyStrengths(4) = 1
-    DummyAgilities(4) = 0
-    DummyNames$(5) = "Astigmatism"
-    DummySpares(5) = 2
-    DummyHappys(5) = 1
-    DummyDialogues$(5) = "Have you fallen down?you cant look at it.you cant look at it.you cant look at it"
-    DummyVitalities(5) = 1
-    DummyStrengths(5) = 2
-    DummyAgilities(5) = 1
-    DummyNames$(6) = "Glad dummy"
-    DummySpares(6) = 0
-    DummyHappys(6) = 0
-    DummyDialogues$(6) = "I'm so happy:)"
-    DummyVitalities(6) = 1
-    DummyStrengths(6) = 1
-    DummyAgilities(6) = 1
-    DummyNames$(6) = "Catty"
-    DummySpares(6) = 1
-    DummyHappys(6) = 1
-    DummyDialogues$(6) = "Woof!"
-    DummyVitalities(6) = 1
-    DummyStrengths(6) = 2
-    DummyAgilities(6) = 0
-    DummySpare = DummySpares(aDummyIndex)
-    DummyHappy = DummyHappys(aDummyIndex)
-    DummyName$ = DummyNames$(aDummyIndex)
-    DummyDialogue$ = DummyDialogues$(aDummyIndex)
+    DummyNames$(1) = "DOGGO.txt"
+    DummyNames$(2) = "FROGGIT.txt"
+    DummyNames$(3) = "MOLDSMALL.txt"
+    DummyNames$(4) = "SKATEBUG.txt"
+    DummyNames$(5) = "SKELETON.txt"
+    DummyNames$(6) = "TEMMIE.txt"
+    DummyNames$(7) = "VEGETOID.txt"
+    path$="ENEMIES/AREA1/"+DummyNames$(aDummyIndex)
+    call loadDummyFromPath path$
+end sub
+sub generateDummyArea2 aDummyIndex
+    DummyNames$(1) = "ASTIGMATISM.txt"
+    DummyNames$(2) = "CATTY.txt"
+    DummyNames$(3) = "DOODLEBUG.txt"
+    DummyNames$(4) = "GLADDUMMY.txt"
+    DummyNames$(5) = "GLYDE.txt"
+    DummyNames$(6) = "MOLDBYGG.txt"
+    DummyNames$(6) = "WOSHA.txt"
+    path$="ENEMIES/AREA2/"+DummyNames$(aDummyIndex)
+    call loadDummyFromPath path$
+end sub
+sub loadDummyFromPath aPath$
+    OPEN aPath$ FOR INPUT AS #1
+        INPUT #1, dummyName$
+        INPUT #1, dummySpare
+        INPUT #1, dummyHappy
+        INPUT #1, dummyDialogue$
+        INPUT #1, dummyVitality
+        INPUT #1, dummyStrength
+        INPUT #1, dummyAgility
+    CLOSE #1
+    DummyName$ = dummyName$
+    DummySpare = dummySpare
+    DummyHappy = dummyHappy
+    DummyDialogue$ = dummyDialogue$
+    DummyVitality = dummyVitality
+    DummyStrength = dummyStrength
+    DummyAgility = dummyAgility
+
     levelDiff=1
     minDummyLevel = PlayerLevel-levelDiff
     if (minDummyLevel<1) then minDummyLevel = 1
     DummyLevel = randInRange(minDummyLevel, PlayerLevel+levelDiff)
-    DummyVitality = DummyVitalities(aDummyIndex)
-    DummyStrength = DummyStrengths(aDummyIndex)
-    DummyAgility = DummyAgilities(aDummyIndex)
     if DummyLevel > 1 then
         for i = 1 to DummyLevel
             call levelDummyUp
@@ -375,7 +219,7 @@ sub generateDummyArea1 aDummyIndex
     DummyGold = randInRange(0, DummyLevel)
     DummyXP = DummyVitality + DummyStrength + DummyAgility
     DummyHealth = calculateMaxHP(DummyVitality, DummyStrength)
-    end sub
+END SUB
 ' INVENTORY, ITEMS, ARMOR, WEAPONS
 sub initPlayerInventory
     PlayerInventoryItemsQuantities(1) = int(rnd(1)*5)   '"Crab Apple"
@@ -575,12 +419,12 @@ end sub
 '////////////////////////////////////////////////////////////////////////
 ' SHOP
 sub SHOP
-PRINT " __        _    _ "
-PRINT "(_  |__|  / \  |_) "
-PRINT "__) |  |  \_/  |   "
-PRINT " "
-PRINT " "
-PRINT " "
+    PRINT " __        _    _ "
+    PRINT "(_  |__|  / \  |_) "
+    PRINT "__) |  |  \_/  |   "
+    PRINT " "
+    PRINT " "
+    PRINT " "
     PRINT "HI! Welcome to my shop where you can buy ITEMS, ARMOR and WEAPONS"
     do
         PRINT "Your gold: "; PlayerGold
@@ -803,22 +647,23 @@ sub STRANGER
             PlayerInventoryItemsQuantities(8)=1
             PlayerInventoryItemsQuantities(7)=0
         end if
-                    if (PlayerInventoryItemsQuantities(8)>0) then
-                Print "I-i already gave you t-the key. W-why did you come back?"
-                print "Well ill just accept my fate..."
-                CALL waitMilliseconds 300
-                print "..."
-                CALL waitMilliseconds 300
-                print "..."
-                print "YOU WON!"
-                PRINT "well we didn't gain any XP..."
-                PRINT "but we can always gain more"
-                CALL waitMilliseconds 100
-                PlayerKills=PlayerKills+1
-            else
-                print "Stranger: I lost my artefact somewhere in bushes. Could you please find it for me?"
-                print "You went away from stranger"
-            end if
+        
+        if (PlayerInventoryItemsQuantities(8)>0) then
+            Print "I-i already gave you t-the key. W-why did you come back?"
+            print "Well ill just accept my fate..."
+            CALL waitMilliseconds 300
+            print "..."
+            CALL waitMilliseconds 300
+            print "..."
+            print "YOU WON!"
+            PRINT "well we didn't gain any XP..."
+            PRINT "but we can always gain more"
+            CALL waitMilliseconds 100
+            PlayerKills=PlayerKills+1
+        else
+            print "Stranger: I lost my artefact somewhere in bushes. Could you please find it for me?"
+            print "You went away from stranger"
+        end if
     else
         ' if player has artefact
         if (PlayerInventoryItemsQuantities(7)>0) then
@@ -837,18 +682,18 @@ sub STRANGER
                 print "2.No"
                 INPUT "Chioce:"; choice
                 SELECT CASE choice
-                CASE 1
-                PRINT "Ok so let me tell you the rules"
-                print "You get 4 tries to guess the number im thinking of"
-                print "if you win you'll get 25 gold"
-                print "but if you loose i'll take 40 gold from you"
-                CALL Game
-                CASE 2
-                PRINT "Oh well"
-                print "You went away from the stranger"
-                CASE ELSE
-            PRINT "NULL_NAN"
-    END SELECT
+                    CASE 1
+                        PRINT "Ok so let me tell you the rules"
+                        print "You get 4 tries to guess the number im thinking of"
+                        print "if you win you'll get 25 gold"
+                        print "but if you loose i'll take 40 gold from you"
+                        CALL Game
+                    CASE 2
+                        PRINT "Oh well"
+                        print "You went away from the stranger"
+                    CASE ELSE
+                        PRINT "NULL_NAN"
+                END SELECT
             else
                 print "Stranger: I lost my artefact somewhere in bushes. Could you please find it for me?"
                 print "You went away from stranger"
@@ -896,7 +741,7 @@ sub BATTLE
             PRINT DummyName$; " is smiling"
         end if
         if DummyHealth <= 0 then
-        PlayerKills=PlayerKills+1
+            PlayerKills=PlayerKills+1
             PlayerXP=PlayerXP+DummyXP
             PlayerGold = PlayerGold + DummyGold
             PRINT "YOU WON!"
@@ -1021,8 +866,8 @@ sub MERCY
         print
         else
         IF DummyHappy=0 then
-                    DummySpare=DummySpare=-1
-    end if
+            DummySpare=DummySpare=-1
+        end if
     end if
 end sub
 sub MyInfo
@@ -1060,7 +905,7 @@ end sub
 sub Quiz
 end sub
 sub Game
-PlayerGuesses=4
+    PlayerGuesses=4
     PRINT "Welcome to the funny number game!"
     RandomAns=int(rnd(1)*10)
     DO
@@ -1074,10 +919,10 @@ PlayerGuesses=4
             PlayerGuesses=PlayerGuesses-1
         end IF
         IF PlayerGuesses<=0 then
-        print "STRANGER:"
-        PRINT "Welp you win some you loose some but today i won"
-        PlayerGold=PlayerGold-40
-        PlayerGuesses=4
+            print "STRANGER:"
+            PRINT "Welp you win some you loose some but today i won"
+            PlayerGold=PlayerGold-40
+            PlayerGuesses=4
         END IF
     LOOP UNTIL PlayerInputNum=RandomAns
     PRINT "CONGRATULATIONS!YOU WON!"
@@ -1097,4 +942,70 @@ sub waitSecond
         secondsNow = time$("seconds")
         secondsDiff = secondsNow - seconds
     loop until secondsDiff >= 1
+end sub
+sub save
+    OPEN "C:\Users\Public\Documents\save_file.txt" FOR OUTPUT AS #1
+    PRINT #1, ItemsSize
+    PRINT #1, ArmorsSize
+    PRINT #1, WeaponsSize
+    PRINT #1, PlayerCurrentHealth
+    PRINT #1, PlayerMaxHealth
+    PRINT #1, PlayerLevel
+    PRINT #1, PlayerXP
+    PRINT #1, PlayerGold
+    PRINT #1, PlayerCurrentArmor
+    PRINT #1, PlayerCurrentWeapon
+    PRINT #1, PlayerVitality
+    PRINT #1, PlayerStrength
+    PRINT #1, PlayerAgility
+    PRINT #1, PlayerInventoryItemsQuantities
+    PRINT #1, DummySpare
+    PRINT #1, DummyHappy
+    PRINT #1, DummyName$
+    PRINT #1, DummyDialogue$
+    PRINT #1, DummyHealth
+    PRINT #1, DummyGold
+    PRINT #1, DummyLevel
+    PRINT #1, DummyVitality
+    PRINT #1, DummyStrength
+    PRINT #1, DummyAgility
+    PRINT #1, DummyXP
+    PRINT #1, strangerDiscovered
+    PRINT #1, castleDiscovered
+    PRINT #1, gameFinish
+    PRINT #1, PlayerKills
+    CLOSE #1
+end sub
+sub load
+    OPEN "C:\Users\Public\Documents\save_file.txt" FOR INPUT AS #1
+    INPUT #1, ItemsSize
+    INPUT #1, ArmorsSize
+    INPUT #1, WeaponsSize
+    INPUT #1, PlayerCurrentHealth
+    INPUT #1, PlayerMaxHealth
+    INPUT #1, PlayerLevel
+    INPUT #1, PlayerXP
+    INPUT #1, PlayerGold
+    INPUT #1, PlayerCurrentArmor
+    INPUT #1, PlayerCurrentWeapon
+    INPUT #1, PlayerVitality
+    INPUT #1, PlayerStrength
+    INPUT #1, PlayerAgility
+    INPUT #1, PlayerInventoryItemsQuantities
+    INPUT #1, DummySpare
+    INPUT #1, DummyHappy
+    INPUT #1, DummyName$
+    INPUT #1, DummyDialogue$
+    INPUT #1, DummyHealth
+    INPUT #1, DummyGold
+    INPUT #1, DummyLevel
+    INPUT #1, DummyVitality
+    INPUT #1, DummyStrength
+    INPUT #1, ummyAgility
+    INPUT #1, DummyXP
+    INPUT #1, strangerDiscovered
+    INPUT #1, castleDiscovered
+    INPUT #1, gameFinish
+    INPUT #1, PlayerKills
+    CLOSE #1
 end sub

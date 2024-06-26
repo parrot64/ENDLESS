@@ -1,0 +1,35 @@
+@startuml shopItems
+start
+
+note: shopItems works the same as shopArmor and shopWeapons
+
+:PRINT "ITEMS";
+
+repeat
+    while (itemIndex = 1 to ItemsSize)
+        :call loadItem;
+        if (itemPrice > 0) then
+            :print item info;
+        endif
+    endwhile
+
+    :PRINT "0. back";
+
+    :input itemChoice;
+
+    if (itemChoice=0) then
+        stop
+    elseif (itemChoise > ItemsSize) then
+        :Print "Wrong choise";
+    else
+        :call loadItem;
+        if ( PlayerGold >= itemPrice ) THEN
+            :add item to inventory;
+        ELSE
+            :PRINT "You don't have enough gold";
+        endif
+    endif
+
+repeat while (true)
+
+@enduml

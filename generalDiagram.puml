@@ -1,0 +1,57 @@
+@startuml generalDiagram
+start
+
+repeat
+
+    switch(actionChoice)
+        case (1)
+            :Walk a bit;
+
+        case (2)
+            :SHOP;
+
+        CASE (4)
+            if (seeDummy=1) then
+                group BATTLE
+                    repeat
+                        if (actionChoice) then (FIGHT)
+                            :FIGHT;
+                            if (PlayerCurrentHealth <= 0) then
+                                break
+                            endif
+                        else (ITEM)
+                            :ITEM;
+
+                        endif
+                    repeat while (true)
+                endgroup
+            endif
+
+        case (5)
+            if (seeBushes = 1) then
+                :SEARCHINBUSHES;
+            endif
+
+        case (6)
+            if (castleDiscovered = 1) then
+                :CASTLE;
+            endif
+
+        case (7)
+            if (strangerDiscovered = 1) then
+                :STRANGER;
+            endif
+
+    endswitch
+
+if (gameFinish=1) then
+    stop
+endif
+
+if (PlayerCurrentHealth <= 0) then
+    stop
+endif
+
+repeat while (true)
+
+@enduml

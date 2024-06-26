@@ -1,0 +1,114 @@
+@startuml battle
+start
+
+:PRINT DummyName$ " HAS APEARED!"
+print DummyName$ "'s Health: " DummyHealth
+print "your health: ";
+
+repeat
+
+    :print menu;
+
+    switch(actionChoice)
+        case (1)
+            :call FIGHT;
+        case (3)
+            :call ITEM;
+        case (else)
+            :PRINT "Invalid choice. Please enter a number from the menu.";
+    endswitch
+
+    if (PlayerCurrentHealth <= 0) then
+        :Print "You loose";
+        stop
+    endif
+
+repeat while (true)
+
+@enduml
+/'
+sub BATTLE
+    DO
+        SELECT CASE actionChoice
+            CASE 4
+                call MERCY
+            CASE 5
+                call MyInfo
+            CASE 6
+                call DummyInfo
+            CASE ELSE
+                PRINT "Invalid choice. Please enter a number from the menu."
+        END SELECT
+        if DummyHealth <= 0 then
+            PlayerXP=PlayerXP+DummyXP
+            PlayerGold = PlayerGold + DummyGold
+            PRINT "YOU WON!"
+            PRINT "you got " ;DummyXP; " XP"
+            PRINT "and " ;DummyGold; " GOLD"
+            PRINT "your total XP: " ; PlayerXP; " / "; levelXP()
+            PRINT "your total gold: " ; PlayerGold
+            ' check for level up
+            levelsToUp = int(PlayerXP / levelXP())
+            if (levelsToUp>0) then
+                for i = 1 to levelsToUp
+                    print "Level up!"
+                    PlayerLevel = PlayerLevel + 1
+                    call levelPlayerUp
+                next i
+            end if
+            GameRound = GameRound + 1
+            ' go to the next round
+            exit do
+        end if
+    LOOP UNTIL TRUE
+end sub
+' FIGHT ACT ITEM MERCY
+sub FIGHT
+    dummyDF=randInRange(minDummyDF(), maxDummyDF())
+    RandomDamage=randInRange(minPlayerATK(), maxPlayerATK()) - dummyDF
+    if RandomDamage<0 then
+        RandomDamage=0
+    end if
+    PRINT DummyName$;" took "; RandomDamage; " damege!"
+    DummyHealth=DummyHealth - RandomDamage
+    PRINT DummyName$;"'s Health:"; DummyHealth
+    playerDF=randInRange(minPlayerDF(), maxPlayerDF())
+    RandomDamage=randInRange(minDummyATK(), maxDummyATK()) - playerDF
+    RandomDamage=RandomDamage-armorDF
+    if RandomDamage<0 then
+        RandomDamage=0
+    end if
+    PRINT "You got "; RandomDamage ; " damage!"
+    PlayerCurrentHealth=PlayerCurrentHealth-RandomDamage
+    PRINT "Your Health: "; PlayerCurrentHealth; "/"; PlayerMaxHealth
+    print
+end sub
+sub ITEM
+    PRINT "CHOSE ITEM"
+    for itemIndex = 1 to ItemsSize
+        itemName$=""
+        itemHP=0
+        itemPrice=0
+        call loadItem itemIndex, itemName$, itemHP, itemPrice
+        IF (PlayerInventoryItemsQuantities(itemIndex)>0) and (itemHP>0) THEN
+            PRINT itemIndex; ". "; PlayerInventoryItemsQuantities(itemIndex); " "; itemName$; " gives "; itemHP; " HP"
+        end if
+    next itemIndex
+    do
+        INPUT "Choose Item:" ;itemChoice
+        itemName$=""
+        itemHP=0
+        itemPrice=0
+        call loadItem itemChoice, itemName$, itemHP, itemPrice
+        IF PlayerInventoryItemsQuantities(itemChoice)>0 THEN
+            PlayerCurrentHealth = PlayerCurrentHealth + itemHP
+            PRINT "Your Health ";PlayerCurrentHealth
+            PlayerInventoryItemsQuantities(itemChoice)=PlayerInventoryItemsQuantities(itemChoice)-1
+            exit do
+        ELSE
+            PRINT "you ran out of this item"
+        end if
+    loop until true
+    print
+end sub
+'/

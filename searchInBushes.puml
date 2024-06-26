@@ -1,0 +1,21 @@
+@startuml searchInBushes
+start
+
+:print "You searched in bushes.";
+
+if (randInRange(0, 100) < 20) and (PlayerInventoryItemsQuantities(7)=0) then
+    :print "You found strange artefact.";
+    :add artefact to inventory;
+else
+    if (randInRange(0, 100) < 50) then
+        :print "You found some berries.";
+    else 
+        :print "You found nothing and went away.";
+    endif
+endif
+
+:print;
+
+stop
+
+@enduml
