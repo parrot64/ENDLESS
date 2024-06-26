@@ -1,0 +1,8 @@
+    DummyNames$ = "Doodlebug"
+    DummySpares = 2
+    DummyHappys = 1
+    DummyDialogues$ = "Yö'ôûâÿ÷   øôæéíÿþ"
+    DummyVitalities = 3
+    DummyStrengths = 1
+    DummyAgilities = 0
+

@@ -1,0 +1,7 @@
+    DummyNames$ = "Moldbygg"
+    DummySpares = 2
+    DummyHappys = 1
+    DummyDialogues$ = "Gooh!"
+    DummyVitalities = 1
+    DummyStrengths = 1
+    DummyAgilities = 1

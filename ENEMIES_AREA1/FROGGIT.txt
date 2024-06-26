@@ -1,0 +1,7 @@
+    DummyNames$ = "Froggit"
+    DummySpares = 1
+    DummyHappys = 1
+    DummyDialogues$ = "Ribbit,Ribbit"
+    DummyVitalities = 1
+    DummyStrengths = 1
+    DummyAgilities = 0

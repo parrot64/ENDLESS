@@ -1,0 +1,7 @@
+    DummyNames$ = "Moldsmal"
+    DummySpares = 2
+    DummyHappys = 1
+    DummyDialogues$ = "Blurp blop"
+    DummyVitalities = 1
+    DummyStrengths = 1
+    DummyAgilities = 0

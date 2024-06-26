@@ -1,0 +1,7 @@
+    DummyNames$ = "Woshua"
+    DummySpares = 1
+    DummyHappys = 1
+    DummyDialogues$ = "i must clens the world..."
+    DummyVitalities = 2
+    DummyStrengths = 1
+    DummyAgilities = 1

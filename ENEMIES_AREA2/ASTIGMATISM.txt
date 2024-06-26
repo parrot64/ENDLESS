@@ -1,0 +1,7 @@
+    DummyNames$ = "Astigmatism"
+    DummySpares = 2
+    DummyHappys = 1
+    DummyDialogues$ = "Have you fallen down?you cant look at it.you cant look at it.you cant look at it"
+    DummyVitalities = 1
+    DummyStrengths = 2
+    DummyAgilities = 1

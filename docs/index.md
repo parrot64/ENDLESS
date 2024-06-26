@@ -1,13 +1,17 @@
-HI!my name is anton!and i am the lead developer of ENDLESS!   
+HI! My name is Anton! And i am the lead developer of ENDLESS!   
 ENDLESS is a cool rpg game it has many features:
 
 1.Saving and loading!   
-This game supports saving and loading so your experience dosen't get lost!
+This game supports saving and loading so your experience doesn't get lost!
 
 2.Multiple endings!
-For now theres only 2 endings:   
+For now there's only 2 endings:   
 Good ending   
 Bad ending   
+
+3.Unique enemies!   
+The game includes 7 unique enemies per area!
+Thats 14 enemies total!!!
 
 
 Here are some planned updates:   

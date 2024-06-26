@@ -1,0 +1,7 @@
+    DummyNames$ = "glyde"
+    DummySpares = 1
+    DummyHappys = 1
+    DummyDialogues$ = "Eh?you forgot to clap."
+    DummyVitalities = 2
+    DummyStrengths = 1
+    DummyAgilities = 0
