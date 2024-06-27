@@ -1,3 +1,5 @@
+![](/stratfluid.jpg)
+
 HI! My name is Anton! And i am the lead developer of ENDLESS!   
 ENDLESS is a cool rpg game it has many features:
 
