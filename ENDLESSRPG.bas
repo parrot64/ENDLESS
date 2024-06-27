@@ -22,10 +22,10 @@ global PlayerCurrentWeapon ' an index of current player weapon from weapons arra
 global PlayerVitality
 global PlayerStrength
 global PlayerAgility
-call initPlayerVariables
+call InitPlayerVariables
 ' this is an array of items quatities. it has the same size as ItemsSize, the items in this array is quantities of items in player inventory
 global PlayerInventoryItemsQuantities
-call initPlayerInventory
+call InitPlayerInventory
 ' Dummy Variables
 global DummySpare
 global DummyHappy
@@ -56,40 +56,40 @@ gameFinish=0
 PRINT " __         __        __   __   __ "
 PRINT "|_   |\ |  |  \  |   |_   (_   (_  "
 PRINT "|__  | \|  |__/  |__ |__  __)  __) "
-CALL waitMilliseconds 300
+CALL WaitMilliseconds 300
 PRINT " "
 PRINT "CREDITS TO:"
 PRINT "David Vidal Garcia"
 PRINT "Play-Testing"
 PRINT " "
-CALL waitMilliseconds 300
+CALL WaitMilliseconds 300
 PRINT "Danil Korotenko Pavlo"
 PRINT "Programing help"
 PRINT " "
-CALL waitMilliseconds 300
+CALL WaitMilliseconds 300
 PRINT "Anton Korotenko Danilovich"
 PRINT "Lead Programer"
-CALL waitMilliseconds 1000
+CALL WaitMilliseconds 1000
 do
     print
     print "you are in a forest."
     seeDummy=0
     seeBushes = 0
-    if (randInRange(0, 100) < 20) then
-        randomDummy=randInRange(1,DummyMaxIndex)
-        call generateDummyArea1 randomDummy
+    if (RandInRange(0, 100) < 20) then
+        randomDummy=RandInRange(1,DummyMaxIndex)
+        call GenerateDummyArea1 randomDummy
         print "You see "; DummyName$; " Is walking around."
         seeDummy=1
     else
-        if (randInRange(0, 100) < 20) then
+        if (RandInRange(0, 100) < 20) then
             print "You are near some bushes."
             seeBushes = 1
         else
-            if (randInRange(0, 100) < 20) and (castleDiscovered =0) then
+            if (RandInRange(0, 100) < 20) and (castleDiscovered =0) then
                 print "You are near ancient castle."
                 castleDiscovered = 1
             else
-                if (randInRange(0, 100) < 20) and (strangerDiscovered =0) then
+                if (RandInRange(0, 100) < 20) and (strangerDiscovered =0) then
                     print "You meet the stranger."
                     strangerDiscovered=1
                 end if
@@ -123,9 +123,9 @@ do
         CASE 3
             call MyInfo
         CASE 4
-            call save
+            call SaveGameState
         CASE 5
-            call load
+            call LoadGameState
         CASE 6
             if (seeDummy=1) then
                 call BATTLE
@@ -154,12 +154,12 @@ do
 LOOP UNTIL TRUE
 END
 ' SUBROUTINES AREA /////////////////////////////////////////////
-sub initPlayerVariables
+sub InitPlayerVariables
     ' initial values of player variables
     PlayerVitality = 1
     PlayerStrength = 2
     PlayerAgility = 1
-    PlayerMaxHealth = calculateMaxHP(PlayerVitality, PlayerStrength)
+    PlayerMaxHealth = CalculateMaxHP(PlayerVitality, PlayerStrength)
     PlayerCurrentHealth = PlayerMaxHealth
     PlayerLevel=1
     PlayerXP = 0
@@ -167,7 +167,7 @@ sub initPlayerVariables
     PlayerCurrentArmor = 1 'Bandage
     PlayerCurrentWeapon = 1 'Stick
 end sub
-sub generateDummyArea1 aDummyIndex
+sub GenerateDummyArea1 aDummyIndex
     DummyNames$(1) = "DOGGO.txt"
     DummyNames$(2) = "FROGGIT.txt"
     DummyNames$(3) = "MOLDSMALL.txt"
@@ -176,9 +176,9 @@ sub generateDummyArea1 aDummyIndex
     DummyNames$(6) = "TEMMIE.txt"
     DummyNames$(7) = "VEGETOID.txt"
     path$="ENEMIES/AREA1/"+DummyNames$(aDummyIndex)
-    call loadDummyFromPath path$
+    call LoadDummyFromPath path$
 end sub
-sub generateDummyArea2 aDummyIndex
+sub GenerateDummyArea2 aDummyIndex
     DummyNames$(1) = "ASTIGMATISM.txt"
     DummyNames$(2) = "CATTY.txt"
     DummyNames$(3) = "DOODLEBUG.txt"
@@ -187,9 +187,9 @@ sub generateDummyArea2 aDummyIndex
     DummyNames$(6) = "MOLDBYGG.txt"
     DummyNames$(6) = "WOSHA.txt"
     path$="ENEMIES/AREA2/"+DummyNames$(aDummyIndex)
-    call loadDummyFromPath path$
+    call LoadDummyFromPath path$
 end sub
-sub loadDummyFromPath aPath$
+sub LoadDummyFromPath aPath$
     OPEN aPath$ FOR INPUT AS #1
         INPUT #1, dummyName$
         INPUT #1, dummySpare
@@ -210,18 +210,18 @@ sub loadDummyFromPath aPath$
     levelDiff=1
     minDummyLevel = PlayerLevel-levelDiff
     if (minDummyLevel<1) then minDummyLevel = 1
-    DummyLevel = randInRange(minDummyLevel, PlayerLevel+levelDiff)
+    DummyLevel = RandInRange(minDummyLevel, PlayerLevel+levelDiff)
     if DummyLevel > 1 then
         for i = 1 to DummyLevel
-            call levelDummyUp
+            call LevelDummyUp
         next i
     end if
-    DummyGold = randInRange(0, DummyLevel)
+    DummyGold = RandInRange(0, DummyLevel)
     DummyXP = DummyVitality + DummyStrength + DummyAgility
-    DummyHealth = calculateMaxHP(DummyVitality, DummyStrength)
+    DummyHealth = CalculateMaxHP(DummyVitality, DummyStrength)
 END SUB
 ' INVENTORY, ITEMS, ARMOR, WEAPONS
-sub initPlayerInventory
+sub InitPlayerInventory
     PlayerInventoryItemsQuantities(1) = int(rnd(1)*5)   '"Crab Apple"
     PlayerInventoryItemsQuantities(2) = int(rnd(1)*4)   '"Sea Tea"
     PlayerInventoryItemsQuantities(3) = 1               '"Cinnamon-Buttersctotch Pie"
@@ -231,7 +231,7 @@ sub initPlayerInventory
     PlayerInventoryItemsQuantities(7) = 0               ' artefact
     PlayerInventoryItemsQuantities(8) = 0               ' key
 end sub
-sub loadItem anItemIndex, byref anItemName$, byref anItemHP, byref anItemPrice
+sub LoadItem anItemIndex, byref anItemName$, byref anItemHP, byref anItemPrice
     ItemsNames$(1) = "Crab Apple"
     ItemsPrices(1) = 5
     ItemsHPs(1) = 5
@@ -261,7 +261,7 @@ sub loadItem anItemIndex, byref anItemName$, byref anItemHP, byref anItemPrice
     anItemHP = ItemsHPs(anItemIndex)
     anItemPrice = ItemsPrices(anItemIndex)
 end sub
-sub loadArmor anArmorIndex, byref anArmorName$, byref anArmorDF, byref anArmorPrice
+sub LoadArmor anArmorIndex, byref anArmorName$, byref anArmorDF, byref anArmorPrice
     ArmorNames$(1) = "Nothing"'"Bandage"
     ArmorPrices(1) = 0 '1
     ArmorDFs(1) = 0 '1
@@ -279,7 +279,7 @@ sub loadArmor anArmorIndex, byref anArmorName$, byref anArmorDF, byref anArmorPr
     anArmorDF = ArmorDFs(anArmorIndex)
     anArmorPrice = ArmorPrices(anArmorIndex)
 end sub
-sub loadWeapon aWeaponIndex, byref aWeaponName$, byref aWeaponATK, byref aWeaponPrice
+sub LoadWeapon aWeaponIndex, byref aWeaponName$, byref aWeaponATK, byref aWeaponPrice
     WeaponNames$(1) = "Nothing"'"Stick"
     WeaponPrices(1) = 0 '1
     WeaponATKs(1) = 0 '2
@@ -298,7 +298,7 @@ sub loadWeapon aWeaponIndex, byref aWeaponName$, byref aWeaponATK, byref aWeapon
     aWeaponPrice = WeaponPrices(aWeaponIndex)
 end sub
 ' service subs and funcs/////////////////////////////////////////////////
-sub waitMilliseconds aMillisecondsDelay
+sub WaitMilliseconds aMillisecondsDelay
     ms = time$("milliseconds")
     msNow = ms
     msDiff = msNow - ms
@@ -307,85 +307,85 @@ sub waitMilliseconds aMillisecondsDelay
         msDiff = msNow - ms
     loop until msDiff >= aMillisecondsDelay
 end sub
-function randInRange(aRangeMin, aRangeMax)
-    randInRange = int(rnd(1)*((aRangeMax+1) - aRangeMin))+aRangeMin
+function RandInRange(aRangeMin, aRangeMax)
+    RandInRange = int(rnd(1)*((aRangeMax+1) - aRangeMin))+aRangeMin
 end function
-function calculateMaxHP(aVitality, aStrength)
-    calculateMaxHP = 10 + (aVitality * 5) + aStrength
+function CalculateMaxHP(aVitality, aStrength)
+    CalculateMaxHP = 10 + (aVitality * 5) + aStrength
 end function
-function levelXP() '(aLevel)
-    levelXP = 10 * PlayerLevel' aLevel
+function LevelXP() '(aLevel)
+    LevelXP = 10 * PlayerLevel' aLevel
 end function
-function maxATK(aStrength)
-    maxATK = aStrength
+function MaxATK(aStrength)
+    MaxATK = aStrength
 end function
-function minATK(aStrength)
+function MinATK(aStrength)
     atk=int(aStrength / 2)
     if (atk<1) then atk = 1
-    minATK = atk
+    MinATK = atk
 end function
-function maxDF(anAgility)
-    maxDF = anAgility
+function MaxDF(anAgility)
+    MaxDF = anAgility
 end function
-function minDF(anAgility)
-    minDF = int(anAgility/2)
+function MinDF(anAgility)
+    MinDF = int(anAgility/2)
 end function
-function maxPlayerATK()
+function MaxPlayerATK()
     weaponName$=""
     weaponATK=0
     weaponPrice=0
-    call loadWeapon PlayerCurrentWeapon, weaponName$, weaponATK, weaponPrice
-    maxPlayerATK = maxATK(PlayerStrength) + weaponATK
+    call LoadWeapon PlayerCurrentWeapon, weaponName$, weaponATK, weaponPrice
+    MaxPlayerATK = MaxATK(PlayerStrength) + weaponATK
 end function
-function minPlayerATK()
+function MinPlayerATK()
     weaponName$=""
     weaponATK=0
     weaponPrice=0
-    call loadWeapon PlayerCurrentWeapon, weaponName$, weaponATK, weaponPrice
-    minPlayerATK = minATK(PlayerStrength) + weaponATK
+    call LoadWeapon PlayerCurrentWeapon, weaponName$, weaponATK, weaponPrice
+    MinPlayerATK = MinATK(PlayerStrength) + weaponATK
 end function
-function maxPlayerDF()
+function MaxPlayerDF()
     armorName$=""
     armorDF=0
     armorPrice=0
-    call loadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
-    maxPlayerDF = maxDF(PlayerAgility) + armorDF
+    call LoadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
+    MaxPlayerDF = MaxDF(PlayerAgility) + armorDF
 end function
-function minPlayerDF()
+function MinPlayerDF()
     armorName$=""
     armorDF=0
     armorPrice=0
-    call loadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
-    minPlayerDF = minDF(PlayerAgility) + armorDF
+    call LoadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
+    MinPlayerDF = MinDF(PlayerAgility) + armorDF
 end function
-function maxDummyATK()
-    maxDummyATK = maxATK(DummyStrength)
+function MaxDummyATK()
+    MaxDummyATK = MaxATK(DummyStrength)
 end function
-function minDummyATK()
-    minDummyATK = minATK(DummyStrength)
+function MinDummyATK()
+    MinDummyATK = MinATK(DummyStrength)
 end function
-function maxDummyDF()
-    maxDummyDF = maxDF(DummyAgility)
+function MaxDummyDF()
+    MaxDummyDF = MaxDF(DummyAgility)
 end function
-function minDummyDF()
-    minDummyDF = minDF(DummyAgility)
+function MinDummyDF()
+    MinDummyDF = MinDF(DummyAgility)
 end function
-sub printPlayerArmor
+sub PrintPlayerArmor
     armorName$=""
     armorDF=0
     armorPrice=0
-    call loadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
+    call LoadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
     PRINT "Your current armor: "; armorName$; ". It DF: "; armorDF
 end sub
-sub printPlayerWeapon
+sub PrintPlayerWeapon
     weaponName$=""
     weaponATK=0
     weaponPrice=0
-    call loadWeapon PlayerCurrentWeapon, weaponName$, weaponATK, weaponPrice
+    call LoadWeapon PlayerCurrentWeapon, weaponName$, weaponATK, weaponPrice
 end sub
-sub levelDummyUp
+sub LevelDummyUp
     skill = DummyVitality + DummyStrength + DummyAgility
-    upgrade = randInRange(0, skill-1)
+    upgrade = RandInRange(0, skill-1)
     if (upgrade < DummyStrength) then
         DummyStrength = DummyStrength + 1
     else
@@ -398,9 +398,9 @@ sub levelDummyUp
         end if
     end if
 end sub
-sub levelPlayerUp
+sub LevelPlayerUp
     skill = PlayerVitality + PlayerStrength + PlayerAgility
-    upgrade = randInRange(0, skill)
+    upgrade = RandInRange(0, skill)
     if (upgrade < PlayerStrength) then
         PlayerStrength = PlayerStrength + 1
         print "Strength + 1"
@@ -458,7 +458,7 @@ sub SHOPITEMS
             itemName$=""
             itemHP=0
             itemPrice=0
-            call loadItem itemIndex, itemName$, itemHP, itemPrice
+            call LoadItem itemIndex, itemName$, itemHP, itemPrice
             if (itemPrice > 0) then
                 PRINT itemIndex; ". "; itemName$;
                 PRINT ". You have: "; PlayerInventoryItemsQuantities(itemIndex);
@@ -476,7 +476,7 @@ sub SHOPITEMS
                 itemName$=""
                 itemHP=0
                 itemPrice=0
-                call loadItem itemChoice, itemName$, itemHP, itemPrice
+                call LoadItem itemChoice, itemName$, itemHP, itemPrice
                 IF ( PlayerGold >= itemPrice ) THEN
                     PlayerInventoryItemsQuantities(itemChoice)=PlayerInventoryItemsQuantities(itemChoice)+1
                     PlayerGold = PlayerGold - itemPrice
@@ -491,7 +491,7 @@ sub SHOPARMOR
     do
         PRINT "Your gold: "; PlayerGold
         PRINT
-        call printPlayerArmor
+        call PrintPlayerArmor
         PRINT "Your current armor: "; armorName$; ". It DF: "; armorDF
         PRINT
         PRINT "ARMORS:"
@@ -499,7 +499,7 @@ sub SHOPARMOR
             armorName$=""
             armorDF=0
             armorPrice=0
-            call loadArmor armorIndex, armorName$, armorDF, armorPrice
+            call LoadArmor armorIndex, armorName$, armorDF, armorPrice
             PRINT armorIndex; ". "; armorName$;
             PRINT ". DF: "; armorDF;
             PRINT ". Price "; armorPrice
@@ -518,7 +518,7 @@ sub SHOPARMOR
                     armorName$=""
                     armorDF=0
                     armorPrice=0
-                    call loadArmor armorChoice, armorName$, armorDF, armorPrice
+                    call LoadArmor armorChoice, armorName$, armorDF, armorPrice
                     IF ( PlayerGold >= armorPrice ) THEN
                         PlayerCurrentArmor = armorChoice
                         PlayerGold = PlayerGold - armorPrice
@@ -534,14 +534,14 @@ sub SHOPWEAPONS
     do
         PRINT "Your gold: "; PlayerGold
         PRINT
-        call printPlayerWeapon
+        call PrintPlayerWeapon
         PRINT
         PRINT "WEAPONS:"
         for weaponIndex = 1 to WeaponsSize
             weaponName$=""
             weaponATK=0
             weaponPrice=0
-            call loadWeapon weaponIndex, weaponName$, weaponATK, weaponPrice
+            call LoadWeapon weaponIndex, weaponName$, weaponATK, weaponPrice
             PRINT weaponIndex; ". "; weaponName$;
             PRINT ". ATK: "; weaponATK;
             PRINT ". Price "; weaponPrice
@@ -560,7 +560,7 @@ sub SHOPWEAPONS
                     weaponName$=""
                     weaponATK=0
                     weaponPrice=0
-                    call loadWeapon weaponChoice, weaponName$, weaponATK, weaponPrice
+                    call LoadWeapon weaponChoice, weaponName$, weaponATK, weaponPrice
                     IF ( PlayerGold >= weaponPrice ) THEN
                         PlayerCurrentWeapon = weaponChoice
                         PlayerGold = PlayerGold - weaponPrice
@@ -575,12 +575,12 @@ end sub
 ' ////////////////////////////////////////////////////////////////////////
 sub SEARCHINBUSHES
     print "You searched in bushes."
-    if (randInRange(0, 100) < 20) and (PlayerInventoryItemsQuantities(7)=0) then
+    if (RandInRange(0, 100) < 20) and (PlayerInventoryItemsQuantities(7)=0) then
         print "You found strange artefact."
         ' add artefac to to inventory
         PlayerInventoryItemsQuantities(7)=1
     else
-        if (randInRange(0, 100) < 50) then
+        if (RandInRange(0, 100) < 50) then
             print "You found some berries."
             PlayerInventoryItemsQuantities(6)=PlayerInventoryItemsQuantities(6)+1
         else
@@ -612,7 +612,7 @@ sub FINALINCASTLE
     if PlayerKills>=20 then
         print "well youve killed everyone so theres no one to murder"
         print "so the only thing i can do is FIGHT you"
-        call printWithDelay "Pasta lavista"
+        call PrintWithDelay "Pasta lavista"
         DummyNames$ = "Anton"
         DummySpare = 2
         DummyHappy = 999
@@ -651,14 +651,14 @@ sub STRANGER
         if (PlayerInventoryItemsQuantities(8)>0) then
             Print "I-i already gave you t-the key. W-why did you come back?"
             print "Well ill just accept my fate..."
-            CALL waitMilliseconds 300
+            CALL WaitMilliseconds 300
             print "..."
-            CALL waitMilliseconds 300
+            CALL WaitMilliseconds 300
             print "..."
             print "YOU WON!"
             PRINT "well we didn't gain any XP..."
             PRINT "but we can always gain more"
-            CALL waitMilliseconds 100
+            CALL WaitMilliseconds 100
             PlayerKills=PlayerKills+1
         else
             print "Stranger: I lost my artefact somewhere in bushes. Could you please find it for me?"
@@ -747,15 +747,15 @@ sub BATTLE
             PRINT "YOU WON!"
             PRINT "you got " ;DummyXP; " XP"
             PRINT "and " ;DummyGold; " GOLD"
-            PRINT "your total XP: " ; PlayerXP; " / "; levelXP()
+            PRINT "your total XP: " ; PlayerXP; " / "; LevelXP()
             PRINT "your total gold: " ; PlayerGold
             ' check for level up
-            levelsToUp = int(PlayerXP / levelXP())
+            levelsToUp = int(PlayerXP / LevelXP())
             if (levelsToUp>0) then
                 for i = 1 to levelsToUp
                     print "Level up!"
                     PlayerLevel = PlayerLevel + 1
-                    call levelPlayerUp
+                    call LevelPlayerUp
                 next i
             end if
             GameRound = GameRound + 1
@@ -778,16 +778,16 @@ sub BATTLE
 end sub
 ' FIGHT ACT ITEM MERCY
 sub FIGHT
-    dummyDF=randInRange(minDummyDF(), maxDummyDF())
-    RandomDamage=randInRange(minPlayerATK(), maxPlayerATK()) - dummyDF
+    dummyDF=RandInRange(MinDummyDF(), MaxDummyDF())
+    RandomDamage=RandInRange(MinPlayerATK(), MaxPlayerATK()) - dummyDF
     if RandomDamage<0 then
         RandomDamage=0
     end if
     PRINT DummyName$;" took "; RandomDamage; " damege!"
     DummyHealth=DummyHealth - RandomDamage
     PRINT DummyName$;"'s Health:"; DummyHealth
-    playerDF=randInRange(minPlayerDF(), maxPlayerDF())
-    RandomDamage=randInRange(minDummyATK(), maxDummyATK()) - playerDF
+    playerDF=RandInRange(MinPlayerDF(), MaxPlayerDF())
+    RandomDamage=RandInRange(MinDummyATK(), MaxDummyATK()) - playerDF
     RandomDamage=RandomDamage-armorDF
     if RandomDamage<0 then
         RandomDamage=0
@@ -801,7 +801,7 @@ sub ACT
     armorName$=""
     armorDF=0
     armorPrice=0
-    call loadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
+    call LoadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
     PRINT "you complement " ;DummyName$
     PRINT "It seems flattered"
     DummyHappy = DummyHappy - 1
@@ -821,7 +821,7 @@ sub ITEM
         itemName$=""
         itemHP=0
         itemPrice=0
-        call loadItem itemIndex, itemName$, itemHP, itemPrice
+        call LoadItem itemIndex, itemName$, itemHP, itemPrice
         IF (PlayerInventoryItemsQuantities(itemIndex)>0) and (itemHP>0) THEN
             PRINT itemIndex; ". "; PlayerInventoryItemsQuantities(itemIndex); " "; itemName$; " gives "; itemHP; " HP"
         end if
@@ -835,7 +835,7 @@ sub ITEM
             itemName$=""
             itemHP=0
             itemPrice=0
-            call loadItem itemChoice, itemName$, itemHP, itemPrice
+            call LoadItem itemChoice, itemName$, itemHP, itemPrice
             IF PlayerInventoryItemsQuantities(itemChoice)>0 THEN
                 PlayerCurrentHealth = PlayerCurrentHealth + itemHP
                 PRINT "Your Health ";PlayerCurrentHealth
@@ -853,7 +853,7 @@ sub MERCY
         armorName$=""
         armorDF=0
         armorPrice=0
-        call loadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
+        call LoadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
         PRINT DummyName$; " is too angry to be spared"
         RandomDamage=int(rnd(1)*5)
         PRINT "You got "; RandomDamage; " damage!"
@@ -872,22 +872,22 @@ sub MERCY
 end sub
 sub MyInfo
     print "Your health: "; PlayerCurrentHealth; "/"; PlayerMaxHealth
-    print "Level: "; PlayerLevel; " EXP: "; PlayerXP; "/"; levelXP()
+    print "Level: "; PlayerLevel; " EXP: "; PlayerXP; "/"; LevelXP()
     print "Vitality (affects max HP):           "; PlayerVitality
     print "Strength (affects ATK and max HP):   "; PlayerStrength
     print "Agility (affects DF):                "; PlayerAgility
-    print "ATK: "; minPlayerATK(); "-"; maxPlayerATK()
-    print "DF: "; minPlayerDF(); "-"; maxPlayerDF()
+    print "ATK: "; MinPlayerATK(); "-"; MaxPlayerATK()
+    print "DF: "; MinPlayerDF(); "-"; MaxPlayerDF()
     print "Gold: "; PlayerGold
-    call printPlayerArmor
-    call printPlayerWeapon
+    call PrintPlayerArmor
+    call PrintPlayerWeapon
     print "Your items:"
     for itemIndex = 1 to ItemsSize
         itemName$=""
         itemHP=0
         itemPrice=0
         IF PlayerInventoryItemsQuantities(itemIndex)>0 THEN
-            call loadItem itemIndex, itemName$, itemHP, itemPrice
+            call LoadItem itemIndex, itemName$, itemHP, itemPrice
             PRINT PlayerInventoryItemsQuantities(itemIndex); " "; itemName$; ". It gives "; itemHP; " HP."
         end if
     next itemIndex
@@ -897,8 +897,8 @@ sub DummyInfo
     print DummyName$
     print "HP: "; DummyHealth
     print "Level: "; DummyLevel; " XP: "; DummyXP
-    print "ATK: "; minDummyATK(); "-"; maxDummyATK()
-    print "DF: "; minDummyDF(); "-"; maxDummyDF()
+    print "ATK: "; MinDummyATK(); "-"; MaxDummyATK()
+    print "DF: "; MinDummyDF(); "-"; MaxDummyDF()
     print "Gold: "; DummyGold
     print
 end sub
@@ -928,13 +928,13 @@ sub Game
     PRINT "CONGRATULATIONS!YOU WON!"
     PlayerGold=PlayerGold+25
 end sub
-sub printWithDelay stringToPrint$
+sub PrintWithDelay stringToPrint$
     for i=0 to len(stringToPrint$)
         print mid$(stringToPrint$, i, 1);
-        call waitSecond
+        call WaitSecond
     next i
 end sub
-sub waitSecond
+sub WaitSecond
     seconds = time$("seconds")
     secondsNow = seconds
     secondsDiff = secondsNow - seconds
@@ -943,7 +943,7 @@ sub waitSecond
         secondsDiff = secondsNow - seconds
     loop until secondsDiff >= 1
 end sub
-sub save
+sub SaveGameState
     OPEN "C:\Users\Public\Documents\save_file.txt" FOR OUTPUT AS #1
     PRINT #1, ItemsSize
     PRINT #1, ArmorsSize
@@ -976,7 +976,7 @@ sub save
     PRINT #1, PlayerKills
     CLOSE #1
 end sub
-sub load
+sub LoadGameState
     OPEN "C:\Users\Public\Documents\save_file.txt" FOR INPUT AS #1
     INPUT #1, ItemsSize
     INPUT #1, ArmorsSize
