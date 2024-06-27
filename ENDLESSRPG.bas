@@ -175,7 +175,7 @@ sub GenerateDummyArea1 aDummyIndex
     DummyNames$(5) = "SKELETON.txt"
     DummyNames$(6) = "TEMMIE.txt"
     DummyNames$(7) = "VEGETOID.txt"
-    path$="ENEMIES/AREA1/"+DummyNames$(aDummyIndex)
+    path$="ENEMIES\AREA1\"+DummyNames$(aDummyIndex)
     call LoadDummyFromPath path$
 end sub
 sub GenerateDummyArea2 aDummyIndex
@@ -185,8 +185,8 @@ sub GenerateDummyArea2 aDummyIndex
     DummyNames$(4) = "GLADDUMMY.txt"
     DummyNames$(5) = "GLYDE.txt"
     DummyNames$(6) = "MOLDBYGG.txt"
-    DummyNames$(6) = "WOSHA.txt"
-    path$="ENEMIES/AREA2/"+DummyNames$(aDummyIndex)
+    DummyNames$(7) = "WOSHA.txt"
+    path$="ENEMIES\AREA2\"+DummyNames$(aDummyIndex)
     call LoadDummyFromPath path$
 end sub
 sub LoadDummyFromPath aPath$
@@ -231,25 +231,31 @@ sub InitPlayerInventory
     PlayerInventoryItemsQuantities(7) = 0               ' artefact
     PlayerInventoryItemsQuantities(8) = 0               ' key
 end sub
-sub LoadItem anItemIndex, byref anItemName$, byref anItemHP, byref anItemPrice
+sub LoadItem anItemIndex, byref anItemName$, byref anItemHP, byref anItemPrice, byref anItemDialogue$
     ItemsNames$(1) = "Crab Apple"
     ItemsPrices(1) = 5
     ItemsHPs(1) = 5
+    ItemDialogues$(1) = "Looks like a crab"
     ItemsNames$(2) = "Sea Tea"
     ItemsPrices(2) = 5
     ItemsHPs(2) = 8
+    ItemDialogues$(2) = "Tastes salty"
     ItemsNames$(3) = "Cinnamon-Buttersctotch Pie"
     ItemsPrices(3) = 5
-    ItemsHPs(3) = 21
+    ItemsHPs(3) = 20
+    ItemDialogues$(3) = "Made with care"
     ItemsNames$(4) = "Monster Candy"
     ItemsPrices(4) = 5
     ItemsHPs(4) = 5
+    ItemDialogues$(4) = "Does it expire?"
     ItemsNames$(5) = "Spider Donut"
     ItemsPrices(5) = 5
     ItemsHPs(5) = 11
+    ItemDialogues$(5) = "Made by spiders,Made for spiders"
     ItemsNames$(6) = "Some berries."
     ItemsPrices(6) = 0
     ItemsHPs(6) = 5
+    ItemDialogues$(6) = "Sour and bitter,but suprisingly salty!"
     ItemsNames$(7) = "A strange artefact. You don't know what it is, and what it is for."
     ItemsPrices(7) = 0
     ItemsHPs(7) = 0
@@ -260,6 +266,7 @@ sub LoadItem anItemIndex, byref anItemName$, byref anItemHP, byref anItemPrice
     anItemName$ = ItemsNames$(anItemIndex)
     anItemHP = ItemsHPs(anItemIndex)
     anItemPrice = ItemsPrices(anItemIndex)
+    anItemDialogue$ = ItemDialogues$(anItemIndex)
 end sub
 sub LoadArmor anArmorIndex, byref anArmorName$, byref anArmorDF, byref anArmorPrice
     ArmorNames$(1) = "Nothing"'"Bandage"
@@ -458,7 +465,8 @@ sub SHOPITEMS
             itemName$=""
             itemHP=0
             itemPrice=0
-            call LoadItem itemIndex, itemName$, itemHP, itemPrice
+            itemDialogue$=""
+            call LoadItem itemIndex, itemName$, itemHP, itemPrice, itemDialogue$
             if (itemPrice > 0) then
                 PRINT itemIndex; ". "; itemName$;
                 PRINT ". You have: "; PlayerInventoryItemsQuantities(itemIndex);
@@ -471,12 +479,13 @@ sub SHOPITEMS
             exit do
         else
             if (itemChoise > ItemsSize) then
-                Print "Wrong choise"
+                Print "Wrong choice"
             else
                 itemName$=""
                 itemHP=0
                 itemPrice=0
-                call LoadItem itemChoice, itemName$, itemHP, itemPrice
+                itemDialogue$=""
+                call LoadItem itemChoice, itemName$, itemHP, itemPrice, itemDialogue$
                 IF ( PlayerGold >= itemPrice ) THEN
                     PlayerInventoryItemsQuantities(itemChoice)=PlayerInventoryItemsQuantities(itemChoice)+1
                     PlayerGold = PlayerGold - itemPrice
@@ -647,7 +656,7 @@ sub STRANGER
             PlayerInventoryItemsQuantities(8)=1
             PlayerInventoryItemsQuantities(7)=0
         end if
-        
+
         if (PlayerInventoryItemsQuantities(8)>0) then
             Print "I-i already gave you t-the key. W-why did you come back?"
             print "Well ill just accept my fate..."
@@ -792,7 +801,7 @@ sub FIGHT
     if RandomDamage<0 then
         RandomDamage=0
     end if
-    PRINT "You got "; RandomDamage ; " damage!"
+    PRINT "You took "; RandomDamage ; " damage!"
     PlayerCurrentHealth=PlayerCurrentHealth-RandomDamage
     PRINT "Your Health: "; PlayerCurrentHealth; "/"; PlayerMaxHealth
     print
@@ -806,13 +815,14 @@ sub ACT
     PRINT "It seems flattered"
     DummyHappy = DummyHappy - 1
     RandomDamage=int(rnd(1)*5)
-    PRINT "You got "; RandomDamage ; " damage!"
+    PRINT "You took "; RandomDamage ; " damage!"
     RandomDamage=RandomDamage-armorDF
     if RandomDamage<0 then
         RandomDamage=0
     end if
     PlayerCurrentHealth=PlayerCurrentHealth-RandomDamage
-    PRINT "Your Health: "; PlayerCurrentHealth
+    PRINT "Your Health: "; PlayerCurrentHealth; "/"; PlayerMaxHealth
+    PRINT DummyName$;"'s Health:"; DummyHealth
     print
 end sub
 sub ITEM
@@ -821,7 +831,8 @@ sub ITEM
         itemName$=""
         itemHP=0
         itemPrice=0
-        call LoadItem itemIndex, itemName$, itemHP, itemPrice
+        itemDialogue$=""
+        call LoadItem itemIndex, itemName$, itemHP, itemPrice, itemDialogue$
         IF (PlayerInventoryItemsQuantities(itemIndex)>0) and (itemHP>0) THEN
             PRINT itemIndex; ". "; PlayerInventoryItemsQuantities(itemIndex); " "; itemName$; " gives "; itemHP; " HP"
         end if
@@ -835,10 +846,13 @@ sub ITEM
             itemName$=""
             itemHP=0
             itemPrice=0
-            call LoadItem itemChoice, itemName$, itemHP, itemPrice
+            itemDialogue$=""
+            call LoadItem itemChoice, itemName$, itemHP, itemPrice, itemDialogue$
             IF PlayerInventoryItemsQuantities(itemChoice)>0 THEN
                 PlayerCurrentHealth = PlayerCurrentHealth + itemHP
-                PRINT "Your Health ";PlayerCurrentHealth
+                PRINT itemDialogue$
+                PRINT "Your Health: "; PlayerCurrentHealth; "/"; PlayerMaxHealth
+                PRINT DummyName$;"'s Health:"; DummyHealth
                 PlayerInventoryItemsQuantities(itemChoice)=PlayerInventoryItemsQuantities(itemChoice)-1
                 exit do
             ELSE
@@ -856,13 +870,14 @@ sub MERCY
         call LoadArmor PlayerCurrentArmor, armorName$, armorDF, armorPrice
         PRINT DummyName$; " is too angry to be spared"
         RandomDamage=int(rnd(1)*5)
-        PRINT "You got "; RandomDamage; " damage!"
+        PRINT "You took "; RandomDamage; " damage!"
         RandomDamage=RandomDamage-armorDF
         if RandomDamage<0 then
             RandomDamage=0
         end if
         PlayerCurrentHealth=PlayerCurrentHealth-RandomDamage
-        PRINT "Your Health "; PlayerCurrentHealth
+        PRINT "Your Health: "; PlayerCurrentHealth; "/"; PlayerMaxHealth
+        PRINT DummyName$;"'s Health:"; DummyHealth
         print
         else
         IF DummyHappy=0 then
@@ -886,8 +901,9 @@ sub MyInfo
         itemName$=""
         itemHP=0
         itemPrice=0
+        itemDialogue$=""
         IF PlayerInventoryItemsQuantities(itemIndex)>0 THEN
-            call LoadItem itemIndex, itemName$, itemHP, itemPrice
+            call LoadItem itemIndex, itemName$, itemHP, itemPrice, itemDialogue$
             PRINT PlayerInventoryItemsQuantities(itemIndex); " "; itemName$; ". It gives "; itemHP; " HP."
         end if
     next itemIndex
@@ -901,8 +917,6 @@ sub DummyInfo
     print "DF: "; MinDummyDF(); "-"; MaxDummyDF()
     print "Gold: "; DummyGold
     print
-end sub
-sub Quiz
 end sub
 sub Game
     PlayerGuesses=4
