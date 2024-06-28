@@ -973,17 +973,6 @@ sub SaveGameState
     PRINT #1, PlayerStrength
     PRINT #1, PlayerAgility
     PRINT #1, PlayerInventoryItemsQuantities
-    PRINT #1, DummySpare
-    PRINT #1, DummyHappy
-    PRINT #1, DummyName$
-    PRINT #1, DummyDialogue$
-    PRINT #1, DummyHealth
-    PRINT #1, DummyGold
-    PRINT #1, DummyLevel
-    PRINT #1, DummyVitality
-    PRINT #1, DummyStrength
-    PRINT #1, DummyAgility
-    PRINT #1, DummyXP
     PRINT #1, strangerDiscovered
     PRINT #1, castleDiscovered
     PRINT #1, gameFinish
@@ -1006,17 +995,6 @@ sub LoadGameState
     INPUT #1, PlayerStrength
     INPUT #1, PlayerAgility
     INPUT #1, PlayerInventoryItemsQuantities
-    INPUT #1, DummySpare
-    INPUT #1, DummyHappy
-    INPUT #1, DummyName$
-    INPUT #1, DummyDialogue$
-    INPUT #1, DummyHealth
-    INPUT #1, DummyGold
-    INPUT #1, DummyLevel
-    INPUT #1, DummyVitality
-    INPUT #1, DummyStrength
-    INPUT #1, ummyAgility
-    INPUT #1, DummyXP
     INPUT #1, strangerDiscovered
     INPUT #1, castleDiscovered
     INPUT #1, gameFinish
