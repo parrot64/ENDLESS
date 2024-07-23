@@ -23,12 +23,20 @@ sub processLocation
         newString$=locationsIndexes$
         intVal=-1
         while len(newString$)<>0
-            text$ = upto$(newString$,",")
-            intVal = val(text$)
+            commaPosition = instr(newString$,",")
+            text$ = ""
+            if commaPosition = 0 then
+                text$ = newString$
+                intVal = val(text$)
+                newString$ = ""
+            else
+                text$=left$(newString$, commaPosition)
+                intVal = val(text$)
+                newString$ = mid$(newString$, commaPosition+1)
+            end if
             if intVal = index then
                 exit while
             end if
-            newString$ = after$(newString$,",")
         wend
         if intVal = index then
             locationIndex = index
