@@ -1,7 +1,8 @@
-strIntArray$="1,20,300,4456,5,656,70"
+strIntArray$="1,20,300,4456,5,656,70,9"
 'call printStringIntArray strIntArray$
 'strIntArray$="1"
 'call printStringIntArray strIntArray$
+print strIntArray$
 dim intArray(10)
 arraySize=0
 call stringToIntArray strIntArray$, intArray, arraySize
@@ -24,12 +25,21 @@ sub stringToIntArray aString$, byref anOutArray, byref anOutArraySize
     newString$=aString$
     i=0
     while len(newString$)<>0
-        text$ = upto$(newString$,",")
-        intVal = val(text$)
+        commaPosition = instr(newString$,",")
+        text$ = ""
+        intVal = 0
+        if commaPosition = 0 then
+            text$ = newString$
+            intVal = val(text$)
+            newString$ = ""
+        else
+            text$=left$(newString$, commaPosition)
+            intVal = val(text$)
+            newString$ = mid$(newString$, commaPosition+1)
+        end if
         i = i+1
         anOutArray(i)=intVal
         print anOutArray(i)
-        newString$ = after$(newString$,",")
     wend
     anOutArraySize = i
     print "Done"
